@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상점</title>
+</head>
+<body>
+<form action="ex08">
+    상품명<input type="text" name="name">
+    가격<input type="text" name="price">
+    재고<input type="text" name="stock">
+    브랜드<input type="text" name="brand">
+    <button>등록</button>
+</form>
+
+<table border="1">
+    <tr>
+        <th>상품명</th>
+        <th>가격</th>
+        <th>재고</th>
+        <th>브랜드</th>
+    </tr>
+    <tr th:object="${productVO}">
+        <td th:text="*{name}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{stock}"></td>
+        <td th:text="*{brand}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
