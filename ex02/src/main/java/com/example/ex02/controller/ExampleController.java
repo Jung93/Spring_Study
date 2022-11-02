@@ -80,9 +80,6 @@ public class ExampleController {
 //    - login.html : 아이디와 비밀번호 입력 페이지 출력
 //    - admin.html : 관리자 페이지 출력
 //    - user.html : 일반 회원 페이지 출력
-
-
-
     @GetMapping("/login")
     public String login(){
         return "ex/login";
@@ -96,6 +93,19 @@ public class ExampleController {
             return "ex/user";
         }
     }
+    //    [실습 4]
+//    이름을 입력하고 출근 또는 퇴근 버튼을 클릭한다.
+//    출근 시간은 09:00이며, 퇴근 시간은 17:00이다.
+//    출근 버튼 클릭 시 9시가 넘으면 지각으로 처리하고,
+//    퇴근 버튼 클릭 시 17시 전이라면 퇴근이 아닌 업무시간으로 처리한다.
+//    - getToWork.html
+//    - leaveWork.html
+//    - late.html
+//    - work.html
+
+
+
+
 }
 
 
