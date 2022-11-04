@@ -1,4 +1,4 @@
-package com.example.app.mybatis;
+package com.example.market.mybatis;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

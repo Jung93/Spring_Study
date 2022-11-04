@@ -1,4 +1,4 @@
-package com.example.app.mybatis;
+package com.example.order.mybatis;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ public class ConnectionTest {
     private DataSource dataSource;
 
     @Test
-    public void dataSourceTest(){
+    public void datasourceTest(){
         try(Connection connection = dataSource.getConnection()){
             log.info("datasource connection: " + connection);
         }catch (Exception e){
@@ -23,3 +23,22 @@ public class ConnectionTest {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

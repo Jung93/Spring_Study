@@ -1,7 +1,6 @@
-package com.example.app.mapper;
+package com.example.order.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface TimeMapper {
