@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
@@ -19,46 +19,59 @@ public class BoardControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-//    브라우저에서 URL을 요청한 것과 같은 환경을 구성해준다
+//    브라우저에서 URL을 요청한 것과 같은 환경을 구성해준다.
     private MockMvc mockMvc;
-
-    MultiValueMap<String, String> params;
 
     @BeforeEach
     public void setUp(){
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        //이 방식도 괜찮지만 여기다가 할꺼면 전역으로 선언하는 게 낫다
-        params = new LinkedMultiValueMap<>();
-        params.add("boardTitle", "히히히히");
-        params.add("boardContent", "하하하하하");
-        params.add("boardNumber", "35");
     }
 
     @Test
-    public void showList() throws Exception{
+    public void showTest() throws Exception{
         log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/list")).andReturn().getModelAndView().getModelMap().toString());
     }
 
     @Test
-    public void writeTest() throws Exception{
-      log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/write")).andReturn().getModelAndView().getViewName());
+    public void writeTest() throws Exception {
+//        log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/write")).andReturn().getModelAndView().getViewName());
+        log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/write")
+                .param("boardTitle", "새로운 제목1")
+                .param("boardContent", "새로운 내용1").param("boardWriter", "testC"))
+                .andReturn().getModelAndView().getViewName());
     }
 
     @Test
-    public void readTest() throws Exception{
-       log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/read").param("boardNumber","29")).andReturn().getModelAndView().getModelMap().toString());
+    public void updateTest() throws Exception {
+//        log.info(mockMvc.perform(MockMvcRequestBuilders.get("/board/update")
+//                .param("boardNumber", "7")).andReturn().getModelAndView().getModelMap().toString());
+        log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/update")
+                .param("boardNumber", "7")
+                .param("boardTitle", "수정된 제목1")
+                .param("boardContent", "수정된 내용1"))
+                .andReturn().getModelAndView().getModelMap().toString());
     }
 
     @Test
-    public void updateTest() throws Exception{
-
-//       log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/update").param("boardNumber","29").param("boardTitle","정재훈 테스트").param("boardContent","정재훈 테스트 내용")).andReturn().getModelAndView().getModelMap().toString());
-       log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/update").params(params)).andReturn().getModelAndView().getModelMap().toString());
+    public void deleteTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/board/delete")
+                .param("boardNumber", "7"))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
     }
-
-    @Test
-    public void deleteTest() throws Exception{
-       log.info(mockMvc.perform(MockMvcRequestBuilders.post("/board/delete").param("boardNumber","29")).andReturn().getModelAndView().getViewName());
-    }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

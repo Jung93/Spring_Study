@@ -46,16 +46,26 @@ public class OrderControllerTest {
 
     @Test
     public void listTest() throws Exception {
-        log.info(mockMvc.perform(MockMvcRequestBuilders.get("/order/list"))
-                .andReturn().getModelAndView().getModelMap().toString());
+//        log.info(mockMvc.perform(MockMvcRequestBuilders.get("/order/list"))
+//                .andReturn().getModelAndView().getModelMap().toString());
+
+//        상품 번호로 주문 조회
+        log.info(mockMvc.perform(MockMvcRequestBuilders.get("/order/item/list")
+                .param("itemNumber", "3"))
+        .andReturn().getModelAndView().getModelMap().toString());
     }
-
-//    상품 번호로 주문 조회
-    @Test
-    public void showItemTest() throws Exception{
-       log.info(mockMvc.perform(MockMvcRequestBuilders.get("/order/itemList")
-                .param("itemNumber","9")).andReturn().getModelAndView().getModelMap().toString());
-    }
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

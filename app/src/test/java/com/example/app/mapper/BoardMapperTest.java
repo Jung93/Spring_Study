@@ -1,7 +1,9 @@
 package com.example.app.mapper;
 
 import com.example.app.domain.vo.BoardVO;
+import com.example.app.domain.vo.Criteria;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,37 +16,39 @@ public class BoardMapperTest {
 
     @Test
     public void getListTest(){
-     boardMapper.getList().stream().map(BoardVO::toString).forEach(log::info);
+        Criteria criteria = new Criteria();
+        criteria.createCriteria(2, 10);
+        boardMapper.getList(criteria).stream().map(BoardVO::toString).forEach(log::info);
     }
 
-
-
-    //추가, 수정, 삭제
     @Test
     public void insertTest(){
         BoardVO boardVO = new BoardVO();
-        boardVO.setBoardTitle("정재훈이 씀");
-        boardVO.setBoardWriter("정재훈");
-        boardVO.setBoardContent("정재훈이 썼습니다");
+        boardVO.setBoardTitle("테스트 제목2");
+        boardVO.setBoardWriter("testB");
+        boardVO.setBoardContent("테스트 내용2");
         boardMapper.insert(boardVO);
+        log.info("추가된 게시글 번호: " + boardVO.getBoardNumber());
     }
 
-
-    //수정
     @Test
     public void updateTest(){
-        BoardVO boardVO = boardMapper.selectNumber(15L);
-        boardVO.setBoardTitle("수현이 시험 대박");
-        boardVO.setBoardContent("대박나세요");
-        boardVO.setBoardNumber(15L);
-        boardMapper.update(boardVO);
+        BoardVO boardVO  = boardMapper.select(1L);
+        Assertions.assertNotNull(boardVO);
+        boardVO.setBoardTitle("수정된 게시글 제목");
+        log.info("UPDATE COUNT: " + boardMapper.update(boardVO));
     }
-    //삭제
+
     @Test
     public void deleteTest(){
-        BoardVO boardVO = boardMapper.selectNumber(15L);
-
-        boardMapper.delete(15L);
+        Long boardNumber = 2L;
+        BoardVO boardVO = boardMapper.select(boardNumber);
+        Assertions.assertNotNull(boardVO);
+        boardMapper.delete(boardNumber);
     }
 
+    @Test
+    public void selectCountOfBoard(){
+        log.info("board count: " + boardMapper.selectCountOfBoard());
+    }
 }

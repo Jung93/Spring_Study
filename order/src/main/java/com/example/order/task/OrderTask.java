@@ -14,8 +14,20 @@ public class OrderTask {
 
     @Scheduled(cron = "0 0 0 * * *")
     public void insertSequence(){
-            log.info("매일 0시에 자동으로 주문번호 초기화");
-            orderDAO.saveOrderSequence();
-    }
+        log.warn("===============================");
+        log.warn("Inserted order sequence");
+        log.warn("===============================");
 
+        orderDAO.saveOrderSequence();
+    }
 }
+
+
+
+
+
+
+
+
+
+
